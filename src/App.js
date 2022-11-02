@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import './App.css';
+import CreateBlogForm from './Pages/CreateBlogForm'
+import SingleBlog from './Pages/SingleBlog'
 
 const urlEndpoint = "http://localhost:4000";
 
@@ -7,6 +9,7 @@ function App() {
   const [blogs, setBlogs] = useState([]);
   const [id, setId] = useState("4a571289-6d5c-4300-9614-53c6e1237d81");
   const [blog, setBlog] = useState({});
+
 
 
   // this useEffect is for the get-one route, which is making a database request via http, waits for a promise. It comes back as await result.json() which we are setting to variable foundBlog
@@ -35,6 +38,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+
+        <CreateBlogForm urlEndpoint={urlEndpoint} />
+        <SingleBlog id={id} setId={setId} blog={blog} blogs={blogs} />
         {blogs.map((blog, index) => {
           return (
             <div key={index}>
@@ -45,21 +51,6 @@ function App() {
 
 
 
-        <label>Enter id number below</label>
-        <input type="text" onChange={(e) => { setId(e.target.value) }}></input>
-        {blog.title}
-
-
-        {/* {/*  code for drop down menu below */}
-        <select onChange={(e) => { setId(e.target.value) }}>
-
-          <option>Choose id from dropdown menu</option>
-          {/* mapping through blogs (contains all of our data) and returning an option with a key and the id number of each individual blog */}
-          {blogs.map((blog, index) => {
-            return (<option key={index}>{blog.id}</option>
-            )
-          })}
-        </select>
       </header>
     </div>
   );
