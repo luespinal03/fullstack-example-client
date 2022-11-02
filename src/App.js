@@ -9,6 +9,7 @@ function App() {
   const [blog, setBlog] = useState({});
 
 
+  // this useEffect is for the get-one route, which is making a database request via http, waits for a promise. It comes back as await result.json() which we are setting to variable foundBlog
   useEffect(() => {
     const findBlog = async () => {
       const result = await fetch(`${urlEndpoint}/blogs/get-one/${id}`)
@@ -42,8 +43,23 @@ function App() {
           )
         })}
 
+
+
+        <label>Enter id number below</label>
         <input type="text" onChange={(e) => { setId(e.target.value) }}></input>
         {blog.title}
+
+
+        {/* {/*  code for drop down menu below */}
+        <select onChange={(e) => { setId(e.target.value) }}>
+
+          <option>Choose id from dropdown menu</option>
+          {/* mapping through blogs (contains all of our data) and returning an option with a key and the id number of each individual blog */}
+          {blogs.map((blog, index) => {
+            return (<option key={index}>{blog.id}</option>
+            )
+          })}
+        </select>
       </header>
     </div>
   );
