@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import './App.css';
 import CreateBlogForm from './Pages/CreateBlogForm'
 import SingleBlog from './Pages/SingleBlog'
+import UpdateOne from "./Pages/UpdateOne";
+import DeleteOne from "./Pages/DeleteOne";
 
 const urlEndpoint = "http://localhost:4000";
 
@@ -9,6 +11,7 @@ function App() {
   const [blogs, setBlogs] = useState([]);
   const [id, setId] = useState("4a571289-6d5c-4300-9614-53c6e1237d81");
   const [blog, setBlog] = useState({});
+
 
 
 
@@ -35,12 +38,17 @@ function App() {
     fetchBlogs()
   }, [])
 
+
   return (
     <div className="App">
       <header className="App-header">
 
         <CreateBlogForm urlEndpoint={urlEndpoint} />
         <SingleBlog id={id} setId={setId} blog={blog} blogs={blogs} />
+        <UpdateOne urlEndpoint={urlEndpoint} blogs={blogs} />
+        <DeleteOne id={id} setId={setId} blog={blog} blogs={blogs} urlEndpoint={urlEndpoint} />
+        <br />
+        <br />
         {blogs.map((blog, index) => {
           return (
             <div key={index}>
